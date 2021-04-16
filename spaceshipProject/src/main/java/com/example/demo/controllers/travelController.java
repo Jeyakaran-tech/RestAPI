@@ -32,8 +32,39 @@ public class travelController
 	@PostMapping (value = "/travel")
 	public String travel(@RequestBody Travel travel)
 	{
+		int count = 0;
 		List<Location> location = new ArrayList<>(locationRepo.findAll());
 		List<Spaceship> space = new ArrayList<>(spaceRepo.findAll());
+		
+		for(int i=0;i<space.size();i++)
+		{
+			Spaceship s = space.get(i);
+			
+			if(s.getlocation_Id() == travel.getDestID())
+			{
+				return "The spaceship is already in the destined location. Change the destination";
+			}
+		}
+		
+		for(int i=0;i<location.size();i++)
+		{
+			
+			Location l1 = location.get(i);
+			if(l1.getId() == travel.getDestID())
+			{
+				count++;
+			}
+			
+			
+		}
+		
+		if(count == 0)
+		{
+			return "No Destination location is found :(";
+		}
+		
+		
+		
 		
 		for(int i=0;i<location.size();i++)
 		{
@@ -45,7 +76,6 @@ public class travelController
 			 
 				 if(l.getId() == travel.getDestID() && m.getId() == travel.getShipID())
 				 {
-				//	 System.out.println(m.getStatus());
 					 if(l.getCapacity() > 0 && m.getStatus().equalsIgnoreCase("Operational"))
 					 {
 						 int cap = l.getCapacity();
@@ -62,6 +92,7 @@ public class travelController
 								 cap1+=1;
 								 o.setCapacity(cap1);
 								 m.setLocation(l.getCityName()+" "+l.getPlanetName());
+								 m.setlocation_Id(travel.getDestID());
 								 this.spaceRepo.save(m);
 							 }
 							 this.locationRepo.save(o);
@@ -89,6 +120,9 @@ public class travelController
 		
 
 	}
+
+
+
 
 
 

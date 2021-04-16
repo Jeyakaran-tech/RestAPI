@@ -6,10 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Spaceship")
 public class Spaceship 
 {
-	
+	Location loc = new Location();
 	
 	@Id
 	private long id;
+	private long location_ID;
 	private String name;
 	private String model;
 	private String location;
@@ -20,13 +21,23 @@ public class Spaceship
 	{
 	
 		this.id = id;
+		this.location_ID = 1000;
 		this.name = name;
-		this.location = "hangar somewhere";
+	//	this.location = loc.getCityName()+" "+loc.getPlanetName();
 		this.model = model;
 		this.status = status;
 	}
 
-	
+	public long getlocation_Id() {
+		return location_ID;
+	}
+
+
+
+
+	public void setlocation_Id(long location_ID) {
+		this.location_ID = location_ID;
+	}
 
 
 
