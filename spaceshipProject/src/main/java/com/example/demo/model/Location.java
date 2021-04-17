@@ -3,10 +3,10 @@ package com.example.demo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Location")
-public class Location 
+@Document(collection = "Location") //Document was created with annotation
+public class Location  //Location class
 {
-	
+	//instance variables
 	@Id
 	private long id;
 	private String cityName;
@@ -15,7 +15,7 @@ public class Location
 	
 	
 	
-
+//constructor for the class
 	public Location( long id,String cityName, String planetName, int capacity) 
 	{
 		super();
@@ -27,10 +27,10 @@ public class Location
 
 
 	public Location() {
-		// TODO Auto-generated constructor stub
 	}
 
 
+	//getters and setter of the instance variables
 	public long getId() {
 		return id;
 	}

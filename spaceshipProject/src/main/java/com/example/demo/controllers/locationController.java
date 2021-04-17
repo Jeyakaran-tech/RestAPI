@@ -33,6 +33,7 @@ public class locationController
 	@Autowired
 	public locationRepository locationRepo;
 	
+	//retrieving all the location
 	@GetMapping (value = "/allloc")
 	public List<Location> getallLocation()
 	{
@@ -40,31 +41,51 @@ public class locationController
 		
 	}
 	
-	
+	//creating the new location
 	@PostMapping (value = "/createloc")
 	public String createSpaceship(@RequestBody Location location)
 	{
 		int count = 0;
 		
-		List<Location> loc = new ArrayList<>(locationRepo.findAll());
+		List<Location> loc = new ArrayList<>(locationRepo.findAll()); //getting all the location into a list
 		for(int i=0;i<loc.size();i++)
 		{
 			
-			Location l = loc.get(i);
+			Location l = loc.get(i); //getting the pointer to current location
 			
-			if(l.getId() == location.getId())
+			if(l.getId() == location.getId()) //check whether the location exists already
 			{
 				return "Location exists already";
 			}
 		}
 		
-		Location insertedLocation = locationRepo.insert(location);
+		Location insertedLocation = locationRepo.insert(location); //location was created and saved to mongoDB
 		return "Location created "+insertedLocation.getId();
 	}
 	
+	//deleting the location
 	@RequestMapping (value = "/deleteloc/{Id}", method = RequestMethod.POST)
 	public String deleteRecord(@PathVariable("Id") long Id) 
 	{
+		
+		int count =0;
+		List<Location> loc = new ArrayList<>(locationRepo.findAll()); //getting the list of all the spaceship in current repository
+
+		for(int i=0;i<loc.size();i++)
+		{
+			
+			Location s = loc.get(i); //getting the current position of the pointer in spaceship 
+			
+			if(s.getId() == Id) 
+			{
+				count++; //incrementing the pointer to check the ID is there or not
+			}
+		}
+		
+		if(count == 0)
+		{
+			return "Cannot delete :( since Location ID is not found";
+		}
 		
 		 this.locationRepo.deleteById(Id);
 	    return "Successfully deleted";

@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Travel")
 public class Travel 
 {
+	//instance variables
 	@Id
 	private long travelID;
 	private long sourceID;
@@ -14,7 +15,7 @@ public class Travel
 	
 	
 
-
+//constructor for the class
 	public Travel(long travelID, long sourceID, long destID, long shipID) {
 		super();
 		this.travelID = travelID;
@@ -24,6 +25,7 @@ public class Travel
 	}
 
 
+	//getters and setter for the class
 	public long getTravelID() {
 		return travelID;
 	}

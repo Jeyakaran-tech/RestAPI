@@ -4,10 +4,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Spaceship")
-public class Spaceship 
+public class Spaceship //class for the spaceship
 {
 	Location loc = new Location();
 	
+	//all the instance variables
 	@Id
 	private long id;
 	private long location_ID;
@@ -16,7 +17,7 @@ public class Spaceship
 	private String location;
 	private String status;
 	
-
+	//constructor for this class
 	public Spaceship( long id,String name, String model, String status) 
 	{
 	
@@ -28,6 +29,8 @@ public class Spaceship
 		this.status = status;
 	}
 
+	
+	//getters and setters of all the instance variables
 	public long getlocation_Id() {
 		return location_ID;
 	}
